@@ -1,5 +1,6 @@
 import 'package:coffeeapp/const/colors/appColors.dart';
 import 'package:coffeeapp/const/images/image_assets.dart';
+import 'package:coffeeapp/ui/home/home_view.dart';
 import 'package:coffeeapp/utils/image_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -66,7 +67,9 @@ class WelcomeView extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.to(HomeView());
+              },
               child: Container(
                 width: Get.width * 0.3,
                 height: Get.height * 0.06,
