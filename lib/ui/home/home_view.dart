@@ -1,40 +1,54 @@
 import 'package:coffeeapp/const/colors/appColors.dart';
-import 'package:coffeeapp/ui/headnav/headnav_view.dart';
-import 'package:coffeeapp/ui/searchbar/searchbar_view.dart';
+import 'package:coffeeapp/ui/bottombar/bottombar_controller.dart';
+import 'package:coffeeapp/ui/categorybar/controller/categorybar_controller.dart';
+import 'package:coffeeapp/ui/favorites/favorites_view.dart';
+import 'package:coffeeapp/ui/profile/profile_home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
+  HomeView({super.key});
+  final CategorybarController categorybarController = Get.find<CategorybarController>();
+  final BottombarController bottombarController = Get.put(BottombarController());
+  RxInt currentIconIndex = 0.obs;
+  List<Widget> bottomBarBody = [
+    ProfileHomeView(),
+    FavoritesView(),
+    Icon(Icons.content_paste),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      body: Column(
-        children: [
-          HeadnavView(),
-          SizedBox(
-            height: Get.height * 0.05,
-          ),
-          Container(
-            width: Get.width * 0.9,
-            child: Text(
-              "Find the best Coffee to your taste",
-              style: TextStyle(
-                fontFamily: "SFProText",
-                fontWeight: FontWeight.w700,
-                fontSize: 25,
-                color: AppColors.darkBrown,
+        backgroundColor: AppColors.white,
+        body: Obx(
+          () => bottomBarBody[currentIconIndex.value],
+        ),
+        bottomNavigationBar: Obx(
+          () => BottomNavigationBar(
+            selectedItemColor: AppColors.darkBrown,
+            unselectedItemColor: AppColors.mediumBrown,
+            currentIndex: currentIconIndex.value,
+            onTap: (int newIndex) {
+              currentIconIndex.value = newIndex;
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                ),
+                label: "Home",
               ),
-            ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: "Favorites",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_checkout_sharp),
+                label: "Cart",
+              ),
+            ],
           ),
-          SizedBox(
-            height: Get.height * 0.03,
-          ),
-          SearchbarView(),
-        ],
-      ),
-    );
+        ));
   }
 }

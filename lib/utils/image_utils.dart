@@ -6,10 +6,11 @@ class ImageUtils {
       width: width,
       height: height,
       decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
           image: DecorationImage(
-        image: AssetImage("assets/$imagePath"),
-        fit: BoxFit.fill,
-      )),
+            image: AssetImage("assets/$imagePath"),
+            fit: BoxFit.fill,
+          )),
     );
   }
 }

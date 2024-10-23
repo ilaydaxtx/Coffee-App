@@ -1,13 +1,15 @@
+import 'package:coffeeapp/ui/categorybar/controller/categorybar_controller.dart';
 import 'package:coffeeapp/ui/welcome/welcome_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  CategorybarController categorybarController = Get.put(CategorybarController());
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
